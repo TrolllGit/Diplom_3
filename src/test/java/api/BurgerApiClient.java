@@ -1,5 +1,6 @@
 package api;
 
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import models.User;
 import models.UserCredentials;
@@ -11,6 +12,7 @@ public class BurgerApiClient {
         RestAssured.baseURI = System.getProperty("base.url", "https://stellarburgers.education-services.ru");
     }
 
+    @Step("Регистрация нового пользователя")
     public void register(User user){
         given()
                 .contentType("application/json")
@@ -21,6 +23,7 @@ public class BurgerApiClient {
                 .statusCode(200);
     }
 
+    @Step("Авторизация пользователя с получением токена")
     public String login(String email, String password){
         return given()
                 .contentType("application/json")
@@ -33,6 +36,7 @@ public class BurgerApiClient {
                 .path("accessToken");
     }
 
+    @Step("Удаление пользователя")
     public void deleteUser(String accessToken){
         if (accessToken == null || accessToken.isEmpty())
             return;

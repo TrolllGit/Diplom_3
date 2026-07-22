@@ -6,9 +6,10 @@ import models.User;
 import java.util.Locale;
 
 public class TestData {
-    private static final Faker faker = new Faker(new Locale("en"));
 
-    public static User randomUser(){
+    private static final Faker faker = new Faker(Locale.ENGLISH);
+
+    public static User randomUser() {
         return new User(
                 faker.internet().emailAddress(),
                 faker.internet().password(6, 10),
@@ -16,22 +17,12 @@ public class TestData {
         );
     }
 
-    public static User shortPasswordUser(){
+    public static User shortPasswordUser() {
         return new User(
                 faker.internet().emailAddress(),
                 "12345",
                 faker.name().firstName()
         );
     }
-
-
-
-
-
-
-
-
-
-
-
 }
+
