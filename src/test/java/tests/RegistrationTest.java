@@ -14,29 +14,28 @@ public class RegistrationTest extends BaseTest {
     @Test
     @DisplayName("Успешная регистрация нового пользователя")
     @Description("Проверка, что пользователь может успешно зарегистрироваться с валидными данными")
-    public void shouldRegisterSuccessfully(){
+    public void shouldRegisterSuccessfully() {
         User user = TestData.randomUser();
         RegistrationPage page = new RegistrationPage(driver);
 
-        driver.get(baseUrl + "/register");
+        page.open();
+        page.waitForPageLoad();
         page.register(user.getName(), user.getEmail(), user.getPassword());
-        waitForUrlContains("/login");
 
-        Assert.assertTrue("После регистрации должен произойти переход на страницу входа",
-                driver.getCurrentUrl().contains("/login"));
+        Assert.assertTrue("После регистрации должен произойти переход на страницу входа", page.isRedirectedToLogin());
     }
 
     @Test
     @DisplayName("Ошибка при регистрации с коротким паролем")
     @Description("Проверка, что система выдает ошибку при вводе пароля менее 6 символов")
-    public void shouldShowErrorForShortPassword(){
+    public void shouldShowErrorForShortPassword() {
         User user = TestData.shortPasswordUser();
         RegistrationPage page = new RegistrationPage(driver);
 
-        driver.get(baseUrl + "/register");
-        page.register(user.getName(), user.getEmail(), user.getPassword());
+        page.open();
+        page.waitForPageLoad();
+        page.registerWithExpectedError(user.getName(), user.getEmail(), user.getPassword());
 
-        Assert.assertEquals("Должно появиться сообщение об ошибке",
-                "Некорректный пароль", page.getPasswordError());
+        Assert.assertEquals("Должно появиться сообщение об ошибке", "Некорректный пароль", page.getPasswordError());
     }
 }
