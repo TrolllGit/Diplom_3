@@ -68,4 +68,9 @@ public class MainPage {
     public boolean isFillingsActive() {
         return driver.findElement(fillingsTab).getAttribute("class").contains("tab_tab_type_current");
     }
+
+    @Step("Проверка что пользователь авторизован")
+    public boolean isUserLoggedIn() {
+        return driver.findElement(By.cssSelector(".AppHeader_header__linkText__3q_va")).isDisplayed();
+    }
 }

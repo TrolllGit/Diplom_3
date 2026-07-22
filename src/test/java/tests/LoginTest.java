@@ -5,7 +5,6 @@ import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.PasswordRecoveryPage;
@@ -26,8 +25,7 @@ public class LoginTest extends BaseTestForLogin {
         waitForUrlContains("/login");
         loginPage.login(user.getEmail(),user.getPassword());
 
-        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'",
-                driver.findElement(By.cssSelector(".AppHeader_header__linkText__3q_va")).isDisplayed());
+        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'", mainPage.isUserLoggedIn());
 }
 
     @Test
@@ -41,28 +39,30 @@ public class LoginTest extends BaseTestForLogin {
         mainPage.clickPersonalCabinet();
         waitForUrlContains("/login");
         loginPage.login(user.getEmail(),user.getPassword());
-        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'",
-                driver.findElement(By.cssSelector(".AppHeader_header__linkText__3q_va")).isDisplayed());
+
+        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'", mainPage.isUserLoggedIn());
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
     @Description("Успешный вход в систему при переходе через форму регистрации")
     public void shouldLoginFromRegisterForm(){
+        MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
 
         driver.get(baseUrl + "/register");
         new RegistrationPage(driver).clickLoginLink();
         waitForUrlContains("/login");
         loginPage.login(user.getEmail(), user.getPassword());
-        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'",
-                driver.findElement(By.cssSelector(".AppHeader_header__linkText__3q_va")).isDisplayed());
+
+        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'", mainPage.isUserLoggedIn());
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     @Description("Успешный вход в систему при переходе через форму восстановления пароля")
     public void shouldLoginFromPasswordRecovery(){
+        MainPage mainPage = new MainPage(driver);
         LoginPage loginPage = new LoginPage(driver);
         PasswordRecoveryPage passwordRecoveryPage = new PasswordRecoveryPage(driver);
 
@@ -70,8 +70,8 @@ public class LoginTest extends BaseTestForLogin {
         passwordRecoveryPage.clickLoginLink();
         waitForUrlContains("/login");
         loginPage.login(user.getEmail(),user.getPassword());
-        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'",
-                driver.findElement(By.cssSelector(".AppHeader_header__linkText__3q_va")).isDisplayed());
+
+        Assert.assertTrue("После входа должна появиться кнопка 'Личный кабинет'", mainPage.isUserLoggedIn());
 
     }
 }

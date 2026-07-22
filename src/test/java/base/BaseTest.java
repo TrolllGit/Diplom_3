@@ -30,7 +30,6 @@ public abstract class BaseTest {
         } else {
             driver = new ChromeDriver();
         }
-        driver.manage().window().maximize();
     }
 
     @After

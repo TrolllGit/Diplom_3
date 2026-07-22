@@ -16,7 +16,16 @@ public class ConstructorTest extends BaseTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickSauces();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {}
+
         mainPage.clickBuns();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {}
+
         Assert.assertTrue(mainPage.isBunsActive());
     }
 
@@ -27,6 +36,11 @@ public class ConstructorTest extends BaseTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickSauces();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {}
+
         Assert.assertTrue(mainPage.isSaucesActive());
     }
 
@@ -37,6 +51,11 @@ public class ConstructorTest extends BaseTest {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickFillings();
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {}
+
         Assert.assertTrue(mainPage.isFillingsActive());
     }
 }
